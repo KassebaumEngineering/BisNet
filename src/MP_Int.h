@@ -27,13 +27,13 @@
 //    his graduate classwork at Purdue University.  
 //
 //  Revision:
-//    $Id: MP_Int.h,v 1.1 2000/05/03 05:54:57 jak Exp $
+//    $Id: MP_Int.h,v 1.1.1.1 2000/05/03 05:54:57 jak Exp $
 //  ******************************************************************
 //
 #ifndef _MP_Int_h
 #define _MP_Int_h
 
-static char rcsid_MP_Int_h[] = "$Id: MP_Int.h,v 1.1 2000/05/03 05:54:57 jak Exp $";
+static char rcsid_MP_Int_h[] = "$Id: MP_Int.h,v 1.1.1.1 2000/05/03 05:54:57 jak Exp $";
 
 //
 // ANSI-C Library Functions
@@ -279,8 +279,8 @@ public:
 //
 //  History:
 //    $Log: MP_Int.h,v $
-//    Revision 1.1  2000/05/03 05:54:57  jak
-//    Initial revision
+//    Revision 1.1.1.1  2000/05/03 05:54:57  jak
+//    First checkin of work on C++ bisnet stuff. -jak
 //
 //    Revision 1.2  1997/09/14 01:01:46  jak
 //    Some purely cosmetic changes. -jak

@@ -26,14 +26,14 @@
 //    his graduate classwork at Purdue University.  
 //
 //  Revision:
-//    $Id: MP_Float.h,v 1.1 2000/05/03 05:54:51 jak Exp $
+//    $Id: MP_Float.h,v 1.1.1.1 2000/05/03 05:54:51 jak Exp $
 //
 //  ******************************************************************
 //
 #ifndef _MP_Float_h
 #define _MP_Float_h
 
-static char rcsid_MP_Float_h[] = "$Id: MP_Float.h,v 1.1 2000/05/03 05:54:51 jak Exp $";
+static char rcsid_MP_Float_h[] = "$Id: MP_Float.h,v 1.1.1.1 2000/05/03 05:54:51 jak Exp $";
 
 //
 // ANSI-C Library Functions
@@ -308,8 +308,8 @@ public:
 //
 //  History:
 //    $Log: MP_Float.h,v $
-//    Revision 1.1  2000/05/03 05:54:51  jak
-//    Initial revision
+//    Revision 1.1.1.1  2000/05/03 05:54:51  jak
+//    First checkin of work on C++ bisnet stuff. -jak
 //
 //    Revision 1.2  1997/09/14 01:01:42  jak
 //    Some purely cosmetic changes. -jak

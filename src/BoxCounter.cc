@@ -4,13 +4,13 @@
 //
 // C++ Implementation for the BoxCounter Class 
 //
-//  $Id: BoxCounter.cc,v 1.1 2000/05/03 05:54:45 jak Exp $
+//  $Id: BoxCounter.cc,v 1.1.1.1 2000/05/03 05:54:45 jak Exp $
 //
 //  Author: John Kassebaum
 //
 // $Log: BoxCounter.cc,v $
-// Revision 1.1  2000/05/03 05:54:45  jak
-// Initial revision
+// Revision 1.1.1.1  2000/05/03 05:54:45  jak
+// First checkin of work on C++ bisnet stuff. -jak
 //
 // Revision 1.1.1.1  1997/08/23 17:50:33  jak
 // BoxCounter disappeared from CVS ... this is a replacement. -jak
@@ -29,7 +29,7 @@
 //
 //
 
-static char rcsid_BoxCounter_cc[] = "$Id: BoxCounter.cc,v 1.1 2000/05/03 05:54:45 jak Exp $";
+static char rcsid_BoxCounter_cc[] = "$Id: BoxCounter.cc,v 1.1.1.1 2000/05/03 05:54:45 jak Exp $";
 
 #include "BoxCounter.h"
 

@@ -11,12 +11,12 @@
 //  ----------
 //
 //  Revision:
-//    $Id: MP_Ratio.cc,v 1.1 2000/05/03 05:55:00 jak Exp $
+//    $Id: MP_Ratio.cc,v 1.1.1.1 2000/05/03 05:55:00 jak Exp $
 //
 // Notes: 
 //
 //  ************************************************************
-static char rcsid_MP_Ratio_cc[] = "$Id: MP_Ratio.cc,v 1.1 2000/05/03 05:55:00 jak Exp $";
+static char rcsid_MP_Ratio_cc[] = "$Id: MP_Ratio.cc,v 1.1.1.1 2000/05/03 05:55:00 jak Exp $";
 
 #include <float.h>
 #include <values.h>
@@ -920,8 +920,8 @@ ostream & operator << (ostream &cbuf, const MP_Ratio & aRatio)
 //
 // History:
 //    $Log: MP_Ratio.cc,v $
-//    Revision 1.1  2000/05/03 05:55:00  jak
-//    Initial revision
+//    Revision 1.1.1.1  2000/05/03 05:55:00  jak
+//    First checkin of work on C++ bisnet stuff. -jak
 //
 //    Revision 1.2  1997/09/14 01:01:48  jak
 //    Some purely cosmetic changes. -jak

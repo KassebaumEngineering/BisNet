@@ -11,13 +11,13 @@
 //  ----------
 //
 //  Revision:
-//    $Id: MP_Float.cc,v 1.1 2000/05/03 05:54:49 jak Exp $
+//    $Id: MP_Float.cc,v 1.1.1.1 2000/05/03 05:54:49 jak Exp $
 //
 //  Notes: 
 //
 // ************************************************************
 //
-static char rcsid_MP_Float_cc[] = "$Id: MP_Float.cc,v 1.1 2000/05/03 05:54:49 jak Exp $";
+static char rcsid_MP_Float_cc[] = "$Id: MP_Float.cc,v 1.1.1.1 2000/05/03 05:54:49 jak Exp $";
 
 
 #include "MP_Float.h"
@@ -1053,8 +1053,8 @@ MP_Float   MP_Float:: fread ( FILE* fp )
 //
 //  History:
 //    $Log: MP_Float.cc,v $
-//    Revision 1.1  2000/05/03 05:54:49  jak
-//    Initial revision
+//    Revision 1.1.1.1  2000/05/03 05:54:49  jak
+//    First checkin of work on C++ bisnet stuff. -jak
 //
 //    Revision 1.2  1997/09/14 01:01:40  jak
 //    Some purely cosmetic changes. -jak

@@ -1,6 +1,6 @@
 
 //
-// $Id: main.cc,v 1.1 2000/05/03 05:55:03 jak Exp $
+// $Id: main.cc,v 1.1.1.1 2000/05/03 05:55:03 jak Exp $
 //
 // This is the main driver program for the bisnet program.
 //
@@ -10,7 +10,7 @@
 //
 //
 
-static char rcsid_main_cc[] = "$Id: main.cc,v 1.1 2000/05/03 05:55:03 jak Exp $";
+static char rcsid_main_cc[] = "$Id: main.cc,v 1.1.1.1 2000/05/03 05:55:03 jak Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
