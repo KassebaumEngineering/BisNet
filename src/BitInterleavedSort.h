@@ -6,14 +6,16 @@
 //*
 //* See file "COPYING" for Licensing Info.
 //*
-//* Version: $Id: BitInterleavedSort.h,v 1.1 2000/05/08 23:32:24 jak Exp $
+//* Version: $Id: BitInterleavedSort.h,v 1.2 2000/05/10 06:20:27 jak Exp $
 //*
 //******************************************************************************/
 
 #ifndef _BitInterleavedSort_H
 #define _BitInterleavedSort_H
 
-static char rcsid_BitInterleavedSort_h[] = "$Id: BitInterleavedSort.h,v 1.1 2000/05/08 23:32:24 jak Exp $";
+static char rcsid_BitInterleavedSort_h[] = "$Id: BitInterleavedSort.h,v 1.2 2000/05/10 06:20:27 jak Exp $";
+
+#include "DataSet.h"
 
 namespace BisNet {
 	class BitInterleavedSort {
@@ -23,8 +25,8 @@ namespace BisNet {
 
 	public:
 		// Constructor and Destructor
-		BitInterleavedSort();
-		~BitInterleavedSort();
+		BitInterleavedSort( const DataSet & );
+		virtual ~BitInterleavedSort( void );
 
 		// Class Methods
 		

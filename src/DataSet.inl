@@ -6,13 +6,13 @@
 //*
 //* See file "COPYING" for Licensing Info.
 //*
-//* Version: $Id: DataSet.inl,v 1.1 2000/05/08 23:32:24 jak Exp $
+//* Version: $Id: DataSet.inl,v 1.2 2000/05/10 06:20:27 jak Exp $
 //*
 //******************************************************************************/
 #ifndef _DataSet_I
 #define _DataSet_I
 
-static char rcsid_DataSet_inl[] = "$Id: DataSet.inl,v 1.1 2000/05/08 23:32:24 jak Exp $";
+static char rcsid_DataSet_inl[] = "$Id: DataSet.inl,v 1.2 2000/05/10 06:20:27 jak Exp $";
 
 #ifndef NOINLINES
 #define INLINE inline
@@ -23,18 +23,29 @@ static char rcsid_DataSet_inl[] = "$Id: DataSet.inl,v 1.1 2000/05/08 23:32:24 ja
 namespace BisNet {
 	// Inline Methods
 	//
-	
-	Matrix & getTrainingInput() { return training_input; }
-	void setTrainingInput( Matrix &inputdata ){ training_input = inputdata; }
+	DataSet::Matrix & DataSet::getTrainingInput() const { return *training_input; }
+	void DataSet::setTrainingInput( const DataSet::Matrix &inputdata ){ 
+	    if ( (Matrix *)0 != training_input ) delete training_input;
+	    training_input = new Matrix( inputdata ); 
+	}
 
-	Matrix & getTrainingOutput() { return training_output; }
-	void setTrainingOutput( Matrix &outputdata ) { training_output = outputdata; }
+	DataSet::Matrix & DataSet::getTrainingOutput() const { return *training_output; }
+	void DataSet::setTrainingOutput( const DataSet::Matrix &outputdata ) { 
+	    if ( (Matrix *)0 != training_output ) delete training_output;
+	    training_output = new Matrix( outputdata ); 
+	}
 
-	Matrix & getTestingInput() { return testing_input; }
-	void setTrainingInput( Matrix &inputdata ) { testing_input = inputdata; }
+	DataSet::Matrix & DataSet::getTestingInput() const { return *testing_input; }
+	void DataSet::setTestingInput( const DataSet::Matrix &inputdata ) { 
+	    if ( (Matrix *)0 != testing_input ) delete testing_input;
+	    testing_input = new Matrix( inputdata ); 
+	}
 
-	Matrix & getTestingOutput() { return testing_output; }
-	void setTrainingInput( Matrix &outputdata ) { testing_output = outputdata; }
+	DataSet::Matrix & DataSet::getTestingOutput() const { return *testing_output; }
+	void DataSet::setTestingOutput( const DataSet::Matrix &outputdata ) { 
+	    if ( (Matrix *)0 != testing_output ) delete testing_output;
+	    testing_output = new Matrix( outputdata ); 
+	}
 
 }
 #endif //_DataSet_I

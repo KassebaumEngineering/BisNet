@@ -6,13 +6,13 @@
 //*
 //* See file "COPYING" for Licensing Info.
 //*
-//* Version: $Id: DataSet.cc,v 1.1 2000/05/08 23:32:24 jak Exp $
+//* Version: $Id: DataSet.cc,v 1.2 2000/05/10 06:20:27 jak Exp $
 //*
 //* See DataSet.h for the Interface description and Usage directions.
 //*
 //******************************************************************************/
 
-static char rcsid_DataSet_cc[] = "$Id: DataSet.cc,v 1.1 2000/05/08 23:32:24 jak Exp $";
+static char rcsid_DataSet_cc[] = "$Id: DataSet.cc,v 1.2 2000/05/10 06:20:27 jak Exp $";
 
 #include "DataSet.h"
 
@@ -20,23 +20,23 @@ namespace BisNet {
 
  	//  Class Data
 	//
-	std::map< std::string, DataSet& > DataSet::DataSetMap;
+	DataSet::ByLabel DataSet::DataSetMap;
     
 	//  Factory
 	//
 	DataSet & DataSet::getDataSet( std::string aName ) {
-		if ( 0 == DataSet.count( aName ) ) {
-		    DataSet & dataSet = new DataSet( aName );
-		    DataSetMap.insert( std::map< std::string, DataSet& >::value_type( aName, dataSet ) );
+		if ( 0 == DataSetMap.count( aName ) ) {
+		    DataSet *dataSet_p = new DataSet( aName );
+		    DataSetMap.insert( ByLabel::value_type( aName, dataSet_p ) );
 		}
-		return DataSetMap[ aName ];
+		return *(DataSetMap[ aName ]);
 	}
 	
 	void DataSet::deleteDataSet( std::string aName ) {
-	    if ( 0 != DataSet.count( aName ) ) {
-		    DataSet & tmp = DataSetMap[ aName ];
+	    if ( 0 != DataSetMap.count( aName ) ) {
+		    DataSet *tmp_p = DataSetMap[ aName ];
 		    DataSetMap.erase( aName );
-			delete tmp;
+			delete tmp_p;
 		}
 	}
 
@@ -44,10 +44,17 @@ namespace BisNet {
 	//
 	DataSet::DataSet( std::string aName ) : name( aName )
 	{
-	    training_input  = new Matrix( matrix_market_stream< double >( aName + "trn.in" ) );
-		training_output = new Matrix( matrix_market_stream< double >( aName + "trn.out" ) );
-		testing_input   = new Matrix( matrix_market_stream< double >( aName + "tst.in" ) );
-		testing_output  = new Matrix( matrix_market_stream< double >( aName + "tst.out" ) );
+	    MatrixStream trn_in_stream( (char *)(name + ".trn.in").c_str() );
+	    training_input  = new Matrix( trn_in_stream );
+		
+	    MatrixStream trn_out_stream( (char *)(name + ".trn.out").c_str() );
+		training_output = new Matrix( trn_out_stream );
+		
+	    MatrixStream tst_in_stream( (char *)(name + ".tst.in").c_str() );
+		testing_input   = new Matrix( tst_in_stream );
+		
+	    MatrixStream tst_out_stream( (char *)(name + ".tst.out").c_str() );
+		testing_output  = new Matrix( tst_out_stream );
 	}
 
 	//  Destructor

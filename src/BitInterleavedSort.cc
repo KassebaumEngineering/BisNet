@@ -6,13 +6,13 @@
 //*
 //* See file "COPYING" for Licensing Info.
 //*
-//* Version: $Id: BitInterleavedSort.cc,v 1.1 2000/05/08 23:32:24 jak Exp $
+//* Version: $Id: BitInterleavedSort.cc,v 1.2 2000/05/10 06:20:27 jak Exp $
 //*
 //* See BitInterleavedSort.h for the Interface description and Usage directions.
 //*
 //******************************************************************************/
 
-static char rcsid_BitInterleavedSort_cc[] = "$Id: BitInterleavedSort.cc,v 1.1 2000/05/08 23:32:24 jak Exp $";
+static char rcsid_BitInterleavedSort_cc[] = "$Id: BitInterleavedSort.cc,v 1.2 2000/05/10 06:20:27 jak Exp $";
 
 #include "BitInterleavedSort.h"
 
@@ -20,8 +20,9 @@ namespace BisNet {
 
 	//  Constructor(s)
 	//
-	BitInterleavedSort::BitInterleavedSort()
+	BitInterleavedSort::BitInterleavedSort( const DataSet &aDataSet )
 	{
+	    
 	}
 
 	//  Destructor
