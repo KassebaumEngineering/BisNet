@@ -86,35 +86,65 @@ PACKAGE = @PACKAGE@
 RANLIB = @RANLIB@
 VERSION = @VERSION@
 
-lib_LTLIBRARIES = libMP.la
-libMP_la_SOURCES = MP_Int.cc MP_Ratio.cc MP_Float.cc
+lib_LTLIBRARIES = libdataset.la libbis.la
+lib_LIBRARIES = libdataset.a libbis.a
+
+libdataset_la_SOURCES = DataSet.cc DataSet.h DataSet.inl
+
+libdataset_a_SOURCES = DataSet.cc DataSet.h DataSet.inl
+
+libbis_la_SOURCES = BisNet.cc BisNet.h BisNet.inl     BisTree.cc BisTree.h BisTree.inl  	BitInterleavedSort.cc BitInterleavedSort.h BitInterleavedSort.inl
+
+
+libbis_a_SOURCES = BisNet.cc BisNet.h BisNet.inl     BisTree.cc BisTree.h BisTree.inl  	BitInterleavedSort.cc BitInterleavedSort.h BitInterleavedSort.inl
+
+
+include_HEADERS = DataSet.h DataSet.inl BisNet.h BisNet.inl BisTree.h BisTree.inl     BitInterleavedSort.h BitInterleavedSort.inl
+
 
 bin_PROGRAMS = bisnet
-bisnet_SOURCES = main.cc BisNet.cc 
-bisnet_LDADD = -L/usr/local/lib -lgmp ./libMP.la
+bisnet_SOURCES = main.cc 
+bisnet_LDADD = -L/usr/local/lib -lgmp -lgmp_pp -L. -ldataset -lbis
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
-LTLIBRARIES =  $(lib_LTLIBRARIES)
+LIBRARIES =  $(lib_LIBRARIES)
 
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libMP_la_LDFLAGS = 
-libMP_la_LIBADD = 
-libMP_la_OBJECTS =  MP_Int.lo MP_Ratio.lo MP_Float.lo
+libdataset_a_LIBADD = 
+libdataset_a_OBJECTS =  DataSet.o
+libbis_a_LIBADD = 
+libbis_a_OBJECTS =  BisNet.o BisTree.o BitInterleavedSort.o
+AR = ar
+LTLIBRARIES =  $(lib_LTLIBRARIES)
+
+libdataset_la_LDFLAGS = 
+libdataset_la_LIBADD = 
+libdataset_la_OBJECTS =  DataSet.lo
+libbis_la_LDFLAGS = 
+libbis_la_LIBADD = 
+libbis_la_OBJECTS =  BisNet.lo BisTree.lo BitInterleavedSort.lo
 PROGRAMS =  $(bin_PROGRAMS)
 
-bisnet_OBJECTS =  main.o BisNet.o
-bisnet_DEPENDENCIES =  ./libMP.la
+bisnet_OBJECTS =  main.o
+bisnet_DEPENDENCIES = 
 bisnet_LDFLAGS = 
 CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(include_HEADERS)
+
 DIST_COMMON =  Makefile.am Makefile.in
 
 
@@ -122,10 +152,10 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = gtar
 GZIP_ENV = --best
-DEP_FILES =  .deps/BisNet.P .deps/MP_Float.P .deps/MP_Int.P \
-.deps/MP_Ratio.P .deps/main.P
-SOURCES = $(libMP_la_SOURCES) $(bisnet_SOURCES)
-OBJECTS = $(libMP_la_OBJECTS) $(bisnet_OBJECTS)
+DEP_FILES =  .deps/BisNet.P .deps/BisTree.P .deps/BitInterleavedSort.P \
+.deps/DataSet.P .deps/main.P
+SOURCES = $(libdataset_a_SOURCES) $(libbis_a_SOURCES) $(libdataset_la_SOURCES) $(libbis_la_SOURCES) $(bisnet_SOURCES)
+OBJECTS = $(libdataset_a_OBJECTS) $(libbis_a_OBJECTS) $(libdataset_la_OBJECTS) $(libbis_la_OBJECTS) $(bisnet_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -138,29 +168,36 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 
-mostlyclean-libLTLIBRARIES:
+mostlyclean-libLIBRARIES:
 
-clean-libLTLIBRARIES:
-	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+clean-libLIBRARIES:
+	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
 
-distclean-libLTLIBRARIES:
+distclean-libLIBRARIES:
 
-maintainer-clean-libLTLIBRARIES:
+maintainer-clean-libLIBRARIES:
 
-install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+install-libLIBRARIES: $(lib_LIBRARIES)
 	@$(NORMAL_INSTALL)
 	$(mkinstalldirs) $(DESTDIR)$(libdir)
-	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p"; \
-	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p; \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+	@$(POST_INSTALL)
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(RANLIB) $(DESTDIR)$(libdir)/$$p"; \
+	    $(RANLIB) $(DESTDIR)$(libdir)/$$p; \
 	  else :; fi; \
 	done
 
-uninstall-libLTLIBRARIES:
+uninstall-libLIBRARIES:
 	@$(NORMAL_UNINSTALL)
-	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
-	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(libdir)/$$p; \
 	done
 
 .s.o:
@@ -195,8 +232,46 @@ distclean-libtool:
 
 maintainer-clean-libtool:
 
-libMP.la: $(libMP_la_OBJECTS) $(libMP_la_DEPENDENCIES)
-	$(CXXLINK) -rpath $(libdir) $(libMP_la_LDFLAGS) $(libMP_la_OBJECTS) $(libMP_la_LIBADD) $(LIBS)
+libdataset.a: $(libdataset_a_OBJECTS) $(libdataset_a_DEPENDENCIES)
+	-rm -f libdataset.a
+	$(AR) cru libdataset.a $(libdataset_a_OBJECTS) $(libdataset_a_LIBADD)
+	$(RANLIB) libdataset.a
+
+libbis.a: $(libbis_a_OBJECTS) $(libbis_a_DEPENDENCIES)
+	-rm -f libbis.a
+	$(AR) cru libbis.a $(libbis_a_OBJECTS) $(libbis_a_LIBADD)
+	$(RANLIB) libbis.a
+
+mostlyclean-libLTLIBRARIES:
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+
+distclean-libLTLIBRARIES:
+
+maintainer-clean-libLTLIBRARIES:
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+libdataset.la: $(libdataset_la_OBJECTS) $(libdataset_la_DEPENDENCIES)
+	$(CXXLINK) -rpath $(libdir) $(libdataset_la_LDFLAGS) $(libdataset_la_OBJECTS) $(libdataset_la_LIBADD) $(LIBS)
+
+libbis.la: $(libbis_la_OBJECTS) $(libbis_la_DEPENDENCIES)
+	$(CXXLINK) -rpath $(libdir) $(libbis_la_LDFLAGS) $(libbis_la_OBJECTS) $(libbis_la_LIBADD) $(LIBS)
 
 mostlyclean-binPROGRAMS:
 
@@ -230,6 +305,21 @@ bisnet: $(bisnet_OBJECTS) $(bisnet_DEPENDENCIES)
 	$(CXXCOMPILE) -c $<
 .cc.lo:
 	$(LTCXXCOMPILE) -c $<
+
+install-includeHEADERS: $(include_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(includedir)
+	@list='$(include_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(includedir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(includedir)/$$p; \
+	done
+
+uninstall-includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	list='$(include_HEADERS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(includedir)/$$p; \
+	done
 
 tags: TAGS
 
@@ -339,23 +429,26 @@ check-am: all-am
 check: check-am
 installcheck-am:
 installcheck: installcheck-am
-install-exec-am: install-libLTLIBRARIES install-binPROGRAMS
+install-exec-am: install-libLIBRARIES install-libLTLIBRARIES \
+		install-binPROGRAMS
 install-exec: install-exec-am
 
-install-data-am:
+install-data-am: install-includeHEADERS
 install-data: install-data-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 install: install-am
-uninstall-am: uninstall-libLTLIBRARIES uninstall-binPROGRAMS
+uninstall-am: uninstall-libLIBRARIES uninstall-libLTLIBRARIES \
+		uninstall-binPROGRAMS uninstall-includeHEADERS
 uninstall: uninstall-am
-all-am: Makefile $(LTLIBRARIES) $(PROGRAMS)
+all-am: Makefile $(LIBRARIES) $(LTLIBRARIES) $(PROGRAMS) $(HEADERS)
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
 installdirs:
-	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(bindir)
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(libdir) \
+		$(DESTDIR)$(bindir) $(DESTDIR)$(includedir)
 
 
 mostlyclean-generic:
@@ -367,27 +460,30 @@ distclean-generic:
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
-mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
-		mostlyclean-libtool mostlyclean-binPROGRAMS \
-		mostlyclean-tags mostlyclean-depend mostlyclean-generic
+mostlyclean-am:  mostlyclean-libLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-libLTLIBRARIES \
+		mostlyclean-binPROGRAMS mostlyclean-tags \
+		mostlyclean-depend mostlyclean-generic
 
 mostlyclean: mostlyclean-am
 
-clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool \
-		clean-binPROGRAMS clean-tags clean-depend clean-generic \
-		mostlyclean-am
+clean-am:  clean-libLIBRARIES clean-compile clean-libtool \
+		clean-libLTLIBRARIES clean-binPROGRAMS clean-tags \
+		clean-depend clean-generic mostlyclean-am
 
 clean: clean-am
 
-distclean-am:  distclean-libLTLIBRARIES distclean-compile \
-		distclean-libtool distclean-binPROGRAMS distclean-tags \
-		distclean-depend distclean-generic clean-am
+distclean-am:  distclean-libLIBRARIES distclean-compile \
+		distclean-libtool distclean-libLTLIBRARIES \
+		distclean-binPROGRAMS distclean-tags distclean-depend \
+		distclean-generic clean-am
 	-rm -f libtool
 
 distclean: distclean-am
 
-maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+maintainer-clean-am:  maintainer-clean-libLIBRARIES \
 		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-libLTLIBRARIES \
 		maintainer-clean-binPROGRAMS maintainer-clean-tags \
 		maintainer-clean-depend maintainer-clean-generic \
 		distclean-am
@@ -396,14 +492,17 @@ maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
 
 maintainer-clean: maintainer-clean-am
 
-.PHONY: mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+.PHONY: mostlyclean-libLIBRARIES distclean-libLIBRARIES \
+clean-libLIBRARIES maintainer-clean-libLIBRARIES uninstall-libLIBRARIES \
+install-libLIBRARIES mostlyclean-compile distclean-compile \
+clean-compile maintainer-clean-compile mostlyclean-libtool \
+distclean-libtool clean-libtool maintainer-clean-libtool \
+mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
 clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
-uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
-distclean-compile clean-compile maintainer-clean-compile \
-mostlyclean-libtool distclean-libtool clean-libtool \
-maintainer-clean-libtool mostlyclean-binPROGRAMS distclean-binPROGRAMS \
-clean-binPROGRAMS maintainer-clean-binPROGRAMS uninstall-binPROGRAMS \
-install-binPROGRAMS tags mostlyclean-tags distclean-tags clean-tags \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-binPROGRAMS \
+distclean-binPROGRAMS clean-binPROGRAMS maintainer-clean-binPROGRAMS \
+uninstall-binPROGRAMS install-binPROGRAMS uninstall-includeHEADERS \
+install-includeHEADERS tags mostlyclean-tags distclean-tags clean-tags \
 maintainer-clean-tags distdir mostlyclean-depend distclean-depend \
 clean-depend maintainer-clean-depend info-am info dvi-am dvi check \
 check-am installcheck-am installcheck install-exec-am install-exec \

@@ -1,6 +1,6 @@
 
 //
-// $Id: main.cc,v 1.1 2000/05/03 05:55:03 jak Exp $
+// $Id: main.cc,v 1.2 2000/05/08 23:32:24 jak Exp $
 //
 // This is the main driver program for the bisnet program.
 //
@@ -10,7 +10,7 @@
 //
 //
 
-static char rcsid_main_cc[] = "$Id: main.cc,v 1.1 2000/05/03 05:55:03 jak Exp $";
+static char rcsid_main_cc[] = "$Id: main.cc,v 1.2 2000/05/08 23:32:24 jak Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,6 +24,7 @@ static char rcsid_main_cc[] = "$Id: main.cc,v 1.1 2000/05/03 05:55:03 jak Exp $"
 #define DESCR_0    "Where args are one or more of:\n"
 #define DESCR_1    " -h            prints this help message and exits.\n"
 #define DESCR_2    " -v            verbosely prints out data\n"
+#define DESCR_3    " -s            prints out data statistics\n"
 #define DESCR_7    " -bi           set input file type to binary (float)\n"
 #define DESCR_8    " -bo           set output file type to binary (float)\n"
 #define DESCR_9    " -no           request no output\n"
@@ -67,7 +68,7 @@ main(int argc,char **argv)
   // Parse Command Line
   //
     for (c=1; c< argc; c++) {
-        if ( !strcmp( argv[ c ],"-h") || !strcmp( argv[ c ],"-help")){
+        if ( !strcmp( argv[ c ],"-h") || !strcmp( argv[ c ],"-help") || !strcmp( argv[ c ],"--help")){
             fprintf(stderr,USAGE,argv[0]);
             fprintf(stderr,DESCR_0);
             fprintf(stderr,DESCR_1);

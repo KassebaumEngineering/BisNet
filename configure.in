@@ -13,6 +13,5 @@ AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE(bisnet,0.1)
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_RANLIB
 AM_PROG_LIBTOOL
 AC_OUTPUT(Makefile doc/Makefile m4/Makefile src/Makefile)

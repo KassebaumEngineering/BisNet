@@ -10,10 +10,25 @@
 
 #AUTOMAKE_OPTIONS = 
 
-lib_LTLIBRARIES = libMP.la
-libMP_la_SOURCES = MP_Int.cc MP_Ratio.cc MP_Float.cc
+lib_LTLIBRARIES = libdataset.la libbis.la
+lib_LIBRARIES = libdataset.a libbis.a
+
+libdataset_la_SOURCES = DataSet.cc DataSet.h DataSet.inl
+
+libdataset_a_SOURCES = DataSet.cc DataSet.h DataSet.inl
+
+libbis_la_SOURCES = BisNet.cc BisNet.h BisNet.inl \
+    BisTree.cc BisTree.h BisTree.inl  \
+	BitInterleavedSort.cc BitInterleavedSort.h BitInterleavedSort.inl
+
+libbis_a_SOURCES = BisNet.cc BisNet.h BisNet.inl \
+    BisTree.cc BisTree.h BisTree.inl  \
+	BitInterleavedSort.cc BitInterleavedSort.h BitInterleavedSort.inl
+
+include_HEADERS =  DataSet.h DataSet.inl BisNet.h BisNet.inl BisTree.h BisTree.inl \
+    BitInterleavedSort.h BitInterleavedSort.inl
 
 bin_PROGRAMS = bisnet
-bisnet_SOURCES = main.cc BisNet.cc 
-bisnet_LDADD = -L/usr/local/lib -lgmp ./libMP.la
+bisnet_SOURCES = main.cc 
+bisnet_LDADD = -L/usr/local/lib -lgmp -lgmp_pp -L. -ldataset -lbis
 
